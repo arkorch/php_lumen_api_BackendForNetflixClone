@@ -134,3 +134,65 @@ $router->get('/api/movie/countries/{id}', [
     'uses' => 'MovieController@show'
 ]);
 
+
+
+
+
+
+//TVSHOWS 
+// GET /api/songs maps to SongController function index, and lists movies
+$router->get('/api/tvshow', [
+    'as' => 'api.tvshows.index',
+    'uses' => 'TvshowController@index',
+    // 'middleware' => ['auth']
+]);
+//Show Only Movies For Adult
+
+$router->get('/api/tvshow/onlyadult', [
+    'as' => 'api.movie.onlyadult',
+    'uses' => 'TvshowController@onlyadult'
+]);
+
+//Show Only Movies For Kids
+
+$router->get('/api/tvshow/onlykids', [
+    'as' => 'api.movie.onlykids',
+    'uses' => 'TvshowController@onlykids'
+]);
+// GET /api/tvshow/{id} maps to SongController function show, and shows a specific movie
+$router->get('/api/tvshow/{id}', [
+    'as' => 'api.tvshows.show',
+    'uses' => 'TvshowController@show'
+]);
+
+// POST /api/tvshow maps to SongController function store, which creates/stores a new movie
+$router->post('/api/tvshow', [
+    'as' => 'api.tvshows.store',
+    'uses' => 'TvshowController@store'
+]);
+
+// PATCH /api/tvshow/{id} maps to SongController function update, which updates a specific movie
+$router->patch('/api/tvshow/{id}', [
+    'as' => 'api.tvshows.update',
+    'uses' => 'TvshowController@update'
+]);
+
+// DELETE /api/tvshow/{id} maps to SongController function destroy, which deletes the given movie
+$router->delete('/api/tvshow/{id}', [
+    'as' => 'api.tvshows.delete',
+    'uses' => 'TvshowController@destroy'
+]);
+
+// Countries
+
+// GET /api/countries
+$router->get('/api/movie/countries', [
+    'as' => 'api.movie.countries.index',
+    'uses' => 'TvshowController@index'
+]);
+
+// GET /api/countries/{id}
+$router->get('/api/movie/countries/{id}', [
+    'as' => 'api.movie.countries.show',
+    'uses' => 'TvshowController@show'
+]);
