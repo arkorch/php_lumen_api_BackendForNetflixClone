@@ -1,4 +1,4 @@
-# research2_movies_api
+# research2_movies_api_hw
 Research 2 assignment using Laravel Lumen. This API is used by the Netflix Clone.
 
 # Link to Netflix Clone Repository
