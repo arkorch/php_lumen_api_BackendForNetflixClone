@@ -50,6 +50,11 @@ class Country extends Model
     }
     public function movies()
     {
-        return $this->hasMany(Movies::class);
+        return $this->hasMany(Movie::class);
+    }
+
+    public function tvshows()
+    {
+        return $this->hasMany(Tvshow::class);
     }
 }

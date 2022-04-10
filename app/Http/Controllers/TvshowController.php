@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use App\Models\Movie;
+use App\Models\Category;
+use App\Models\Tvshow;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MovieController extends Controller
+class TvshowController extends Controller
 {
     /**
      * List all the songs stored in our Database
@@ -16,12 +17,12 @@ class MovieController extends Controller
      * @return \Illuminate\Http\Response
      */
     function list(){
-        return Movie::all();
-    }
+        return Tvshow::all();
+    } 
      public function index(Request $request)
     {
        
-        $moviesQuery = Movie::with(['categories', 'country']);
+        $tvshowsQuery = Tvshow::with(['categories', 'country']);
 
         // check if the category_id key is on the request (either in $_POST or $_GET)
         if ($request->has('category_id')) {
@@ -30,20 +31,20 @@ class MovieController extends Controller
 
          
 
-            $moviesQuery->whereHas('categories', function ($categoryQuery) use ($categoryId) {
+            $tvshowsQuery->whereHas('categories', function ($categoryQuery) use ($categoryId) {
                 $categoryQuery->where('id', '=', $categoryId);
             });
         }
 
         if ($request->has('country_id')) {
-            $moviesQuery->where('country_id', '=', $request->input('country_id'));
+            $tvshowsQuery->where('country_id', '=', $request->input('country_id'));
         }
 
         if ($request->has('search')) {
             // SELECT * FROM songs WHERE title LIKE '%abc%';
             $search = $request->input('search');
-            $moviesQuery->where('movies_title', 'LIKE', "%" . $search . "%");
-            // $moviesQuery->where('title', 'LIKE', "%$search%");
+            $tvshowsQuery->where('tvshows_title', 'LIKE', "%" . $search . "%");
+            // $tvshowsQuery->where('title', 'LIKE', "%$search%");
         }
 
         if ($request->has('country_name')) {
@@ -51,14 +52,14 @@ class MovieController extends Controller
             // and see if there is a country for this model (relationship) that matches
             // the extra where statements we're adding
             $countryName = $request->input('country_name');
-            $moviesQuery->whereHas('country', function ($countryQuery) use ($countryName) {
+            $tvshowsQuery->whereHas('country', function ($countryQuery) use ($countryName) {
                 $countryQuery->where('name', 'LIKE', '%' . $countryName . '%');
             });
         }
 
-        $movies = $moviesQuery->paginate();
+        $tvshows = $tvshowsQuery->paginate();
 
-        return response()->json($movies);
+        return response()->json($tvshows);
     }
 
     /**
@@ -70,37 +71,37 @@ class MovieController extends Controller
     public function show(int $id)
     {
         // this:
-        $movie = Movie::query()->find($id);
+        $tvshow = Tvshow::query()->find($id);
         // is the same as:
-        $movie = Movie::find($id);
+        $tvshow = Tvshow::find($id);
         // use load AFTER we've gotten a SINGLE model
         // (or loop over a Collection of models and call 'load' for each one)
-        $movie->load(['categories', 'country']);
+        $tvshow->load(['categories', 'country']);
         // is the same as calling each one individually:
-        // $movie->load('category');
-        // $movie->load('country');
+        // $tvshow->load('category');
+        // $tvshow->load('country');
 
-        return response()->json($movie);
+        return response()->json($tvshow);
     }
 
     public function onlyadult()
     { 
-        $moviesQuery = Movie::with(['categories', 'country']);
-        $moviesQuery->where('rating', '=', 'adult');
+        $tvshowsQuery = Tvshow::with(['categories', 'country']);
+        $tvshowsQuery->where('rating', '=', 'adult');
       
-        $movies = $moviesQuery->paginate();
+        $tvshows = $tvshowsQuery->paginate();
 
-        return response()->json($movies);
+        return response()->json($tvshows);
     }
 
     public function onlykids()
     { 
-        $moviesQuery = Movie::with(['categories', 'country']);
-        $moviesQuery->where('rating', '=', 'kids');
+        $tvshowsQuery = Tvshow::with(['categories', 'country']);
+        $tvshowsQuery->where('rating', '=', 'kids');
       
-        $movies = $moviesQuery->paginate();
+        $tvshows = $tvshowsQuery->paginate();
 
-        return response()->json($movies);
+        return response()->json($tvshows);
     }
     /**
      * Store a new song in the database
@@ -111,8 +112,8 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'movie_title' => 'required|min:3',
-            'movies_runtime' => 'required',
+            'tvshows_title' => 'required|min:3',
+            'tvshows_runtime' => 'required',
             'country_id' => 'required|exists:countries,id',
             'category_ids' => 'array'
         ]);
@@ -120,31 +121,31 @@ class MovieController extends Controller
         $userInput = $request->all();
 
         // The below is equivalent to:
-        // Movie::create([
+        // Tvshow::create([
         //     'title' => 'title of the song',
-        //     'movies_runtime' => '12345',
-        //     'movie_category_id' => 1
+        //     'tvshows_runtime' => '12345',
+        //     'tvshows_category_id' => 1
         // ]);
-        $movie = Movie::create($userInput);
+        $tvshow = Tvshow::create($userInput);
 
         if ($request->has('country_id')) {
             $country = Country::findOrFail($request->input('country_id'));
 
-            $movie->country()->associate($country);
-            $movie->save();
+            $tvshow->country()->associate($country);
+            $tvshow->save();
         }
 
         if ($request->has('category_ids')) {
             $categoryIds = $request->input('category_ids', []);
 
-            $movie->categories()->sync($categoryIds);
+            $tvshow->categories()->sync($categoryIds);
         }
 
-        $movie->load(['categories', 'country']);
+        $tvshow->load(['categories', 'country']);
 
         return response()->json([
-            'message' => 'Successfully created a Music!',
-            'data' => $movie
+            'message' => 'Successfully created a Tv show!',
+            'data' => $tvshow
         ]);
     }
 
@@ -158,16 +159,16 @@ class MovieController extends Controller
     public function update(int $id, Request $request)
     {
         $this->validate($request, [
-            'movie_title' => 'min:3',
+            'tvshows_title' => 'min:3',
             'country_id' => 'exists:countries,id',
             'category_ids' => 'array'
         ]);
 
         $userInput = $request->all();
-        $movie = Movie::find($id);
+        $tvshow = Tvshow::find($id);
 
         // actuallly update the given song
-        $success = $movie->update($userInput);
+        $success = $tvshow->update($userInput);
 
         if (! $success) {
             return response()->json([
@@ -178,21 +179,21 @@ class MovieController extends Controller
         if ($request->has('country_id')) {
             $country = Country::findOrFail($request->input('country_id'));
 
-            $movie->country()->associate($country);
-            $movie->save();
+            $tvshow->country()->associate($country);
+            $tvshow->save();
         }
 
         if ($request->has('category_ids')) {
             $categoryIds = $request->input('category_ids', []);
 
-            $movie->categories()->sync($categoryIds);
+            $tvshow->categories()->sync($categoryIds);
         }
 
-        $movie->load(['categories', 'country']);
+        $tvshow->load(['categories', 'country']);
 
         return response()->json([
-            'message' => 'Successfully update the Movie!',
-            'data' => $movie
+            'message' => 'Successfully update the Tv show!',
+            'data' => $tvshow
         ]);
     }
 
@@ -204,11 +205,11 @@ class MovieController extends Controller
      */
     public function destroy(int $id)
     {
-        $movie = Movie::find($id);
-        $movie->delete();
+        $tvshow = Tvshow::find($id);
+        $tvshow->delete();
 
         return response()->json([
-            'message' => 'Successfully deleted the Movie!'
+            'message' => 'Successfully deleted the Tv show!'
         ]);
     }
 }

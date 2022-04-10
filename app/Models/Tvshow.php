@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Category extends Model
+class Tvshow extends Model
 {
     /**
      * The table our model uses from the database
      * 
      * @var string
      */
-    protected $table = 'categories';
+    protected $table = 'tvshows';
 
     /**
      * Indicates whether or not our model is using the
@@ -33,23 +34,38 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'tvshows_cover',
+        'tvshows_title',
+        'rating'
     ];
+
 
     /* ======================== RELATIONSHIPS ==================== */
 
     /**
-     * A Genre has many songs
+     * A song belongs to one genre
      * 
      * @return BelongsToMany
      */
-    public function movies()
+    public function categories()
     {
-        return $this->belongsToMany(Movie::class);
+        // belongs to many will look for a table
+        // that is the name of this model
+        // and the name of the related model
+        // made singular, and in alphabetical order
+        // i.e genre_song
+        return $this->belongsToMany(Category::class);
     }
-
-    public function tvshows()
+    
+    /**
+     * A song belongs to one country
+     * 
+     * @return BelongsTo 
+     */
+    public function country()
     {
-        return $this->belongsToMany(Tvshow::class);
+        return $this->belongsTo(Country::class);
+        // is the same as:
+        // return $this->belongsTo('\App\Models\Country');
     }
 }
