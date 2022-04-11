@@ -39,7 +39,7 @@ class Category extends Model
     /* ======================== RELATIONSHIPS ==================== */
 
     /**
-     * A Genre has many songs
+     * A Catagories has many movies
      * 
      * @return BelongsToMany
      */

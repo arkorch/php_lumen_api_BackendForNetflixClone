@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class TvshowController extends Controller
 {
     /**
-     * List all the songs stored in our Database
+     * List all the tvshowss stored in our Database
      * 
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -24,9 +24,9 @@ class TvshowController extends Controller
        
         $tvshowsQuery = Tvshow::with(['categories', 'country']);
 
-        // check if the category_id key is on the request (either in $_POST or $_GET)
+        
         if ($request->has('category_id')) {
-            // modify our query to filter down to that specific category_id
+            
             $categoryId = $request->input('category_id');
 
          
@@ -41,14 +41,14 @@ class TvshowController extends Controller
         }
 
         if ($request->has('search')) {
-            // SELECT * FROM songs WHERE title LIKE '%abc%';
+            // SELECT * FROM tvshow WHERE title LIKE '%abc%';
             $search = $request->input('search');
             $tvshowsQuery->where('tvshows_title', 'LIKE', "%" . $search . "%");
-            // $tvshowsQuery->where('title', 'LIKE', "%$search%");
+            
         }
 
         if ($request->has('country_name')) {
-            // when loading the songs from the DB, also check the countries table
+            // when loading the tvshow from the DB, also check the countries table
             // and see if there is a country for this model (relationship) that matches
             // the extra where statements we're adding
             $countryName = $request->input('country_name');
@@ -63,16 +63,16 @@ class TvshowController extends Controller
     }
 
     /**
-     * Show a specific Song
+     * Show a specific tvshow
      * 
      * @param int $id 
      * @return \Illuminate\Http\Response 
      */
     public function show(int $id)
     {
-        // this:
+        
         $tvshow = Tvshow::query()->find($id);
-        // is the same as:
+        
         $tvshow = Tvshow::find($id);
         // use load AFTER we've gotten a SINGLE model
         // (or loop over a Collection of models and call 'load' for each one)
@@ -104,7 +104,7 @@ class TvshowController extends Controller
         return response()->json($tvshows);
     }
     /**
-     * Store a new song in the database
+     * Store a new tvshow in the database
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
@@ -150,7 +150,7 @@ class TvshowController extends Controller
     }
 
     /**
-     * Updates a specific Song with the input the user provides
+     * Updates a specific tvshow with the input the user provides
      * 
      * @param int $id 
      * @param Request $request 
@@ -167,7 +167,7 @@ class TvshowController extends Controller
         $userInput = $request->all();
         $tvshow = Tvshow::find($id);
 
-        // actuallly update the given song
+        // actuallly update the given tvshows
         $success = $tvshow->update($userInput);
 
         if (! $success) {
@@ -198,7 +198,7 @@ class TvshowController extends Controller
     }
 
     /**
-     * Delete a specific song
+     * Delete a specific tvshows
      * 
      * @param int $id 
      * @return \Illuminate\Http\Response
