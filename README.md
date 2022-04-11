@@ -8,7 +8,7 @@ https://github.com/arkorch/netflixclone_frontend.git
 https://netflix-clone-arko-madhur.herokuapp.com/
 
 # Dev Notes & Research Doc
-https://docs.google.com/document/d/1zo2qaO827O2jmK6jskJr2phMhe0hIuVfkw6P6crZJm4/edit?usp=sharing
+https://fanshaweonlineca-my.sharepoint.com/:w:/g/personal/m_kakkar141031_fanshaweonline_ca/Eb5dgHKt1QNGh8cMsV13DqYB2068BC2oNkoAD3QCuqWChg?e=tg3m82
 
 # Team Members
 Arko Roychowdhury
