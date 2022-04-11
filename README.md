@@ -14,6 +14,14 @@ https://docs.google.com/document/d/1zo2qaO827O2jmK6jskJr2phMhe0hIuVfkw6P6crZJm4/
 Arko Roychowdhury
 Madhur Kakkar
 
+# Installation 
+* You need to install Lumen,php & Composer 
+* Then you need to create .env file 
+* Install the database
+* put this comand in folder terminal " php -S localhost:8000 -t public " 
+* Then you can see our Api working on localhost
+* For example if you need to open songs api then you write this on your browser "localhost:8000/api/songs"
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
