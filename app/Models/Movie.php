@@ -43,29 +43,24 @@ class Movie extends Model
     /* ======================== RELATIONSHIPS ==================== */
 
     /**
-     * A song belongs to one genre
+     * A movie belongs to one category
      * 
      * @return BelongsToMany
      */
     public function categories()
     {
-        // belongs to many will look for a table
-        // that is the name of this model
-        // and the name of the related model
-        // made singular, and in alphabetical order
-        // i.e genre_song
+    
         return $this->belongsToMany(Category::class);
     }
     
     /**
-     * A song belongs to one country
+     * A movie belongs to one country
      * 
      * @return BelongsTo 
      */
     public function country()
     {
         return $this->belongsTo(Country::class);
-        // is the same as:
-        // return $this->belongsTo('\App\Models\Country');
+        
     }
 }

@@ -40,7 +40,7 @@ class Country extends Model
     /* ======================== RELATIONSHIPS ==================== */
 
     /**
-     * A country has many songs
+     * This  country has many songs, movies and tvshows
      * 
      * @return HasMany 
      */

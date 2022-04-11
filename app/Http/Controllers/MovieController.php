@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     /**
-     * List all the songs stored in our Database
+     * List all the movies stored in our Database
      * 
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -23,9 +23,9 @@ class MovieController extends Controller
        
         $moviesQuery = Movie::with(['categories', 'country']);
 
-        // check if the category_id key is on the request (either in $_POST or $_GET)
+       
         if ($request->has('category_id')) {
-            // modify our query to filter down to that specific category_id
+           
             $categoryId = $request->input('category_id');
 
          
@@ -40,14 +40,14 @@ class MovieController extends Controller
         }
 
         if ($request->has('search')) {
-            // SELECT * FROM songs WHERE title LIKE '%abc%';
+            // SELECT * FROM movies WHERE title LIKE '%abc%';
             $search = $request->input('search');
             $moviesQuery->where('movies_title', 'LIKE', "%" . $search . "%");
             // $moviesQuery->where('title', 'LIKE', "%$search%");
         }
 
         if ($request->has('country_name')) {
-            // when loading the songs from the DB, also check the countries table
+            // when loading the movies from the DB, also check the countries table
             // and see if there is a country for this model (relationship) that matches
             // the extra where statements we're adding
             $countryName = $request->input('country_name');
@@ -62,7 +62,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Show a specific Song
+     * Show a specific movie
      * 
      * @param int $id 
      * @return \Illuminate\Http\Response 
@@ -103,7 +103,7 @@ class MovieController extends Controller
         return response()->json($movies);
     }
     /**
-     * Store a new song in the database
+     * Store a new movie in the database
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
@@ -149,7 +149,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Updates a specific Song with the input the user provides
+     * Updates a specific movie with the input the user provides
      * 
      * @param int $id 
      * @param Request $request 
@@ -166,7 +166,7 @@ class MovieController extends Controller
         $userInput = $request->all();
         $movie = Movie::find($id);
 
-        // actuallly update the given song
+        // actuallly update the given movie
         $success = $movie->update($userInput);
 
         if (! $success) {
@@ -197,7 +197,7 @@ class MovieController extends Controller
     }
 
     /**
-     * Delete a specific song
+     * Delete a specific movie
      * 
      * @param int $id 
      * @return \Illuminate\Http\Response

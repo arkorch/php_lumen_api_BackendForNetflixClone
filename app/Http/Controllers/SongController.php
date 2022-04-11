@@ -10,54 +10,42 @@ use Illuminate\Http\Request;
 class SongController extends Controller
 {
     /**
-     * List all the songs stored in our Database
+     * I have Listed all the songs stored in our Database
      * 
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        // get all of the songs in the database
-        // $songs = Song::all();
+        // Get a list of all of the songs in the database with genres and country
 
-        // Get a paginated list of all of the songs in the database 
-        // use with BEFORE you get the results;
-        // $songs = Song::with(['genre', 'country'])->paginate();
-
-        // This:
-        // $songsQuery = Song::query()->with(['genre', 'country']);
-        // is the same as:
         $songsQuery = Song::with(['genres', 'country']);
 
-        // check if the genre_id key is on the request (either in $_POST or $_GET)
+        // this coide is checking if the genre_id key is on the request (either in $_POST or $_GET)
         if ($request->has('genre_id')) {
-            // modify our query to filter down to that specific genre_id
+           
             $genreId = $request->input('genre_id');
-
-            // this shorthand:
-            // $songsQuery->whereGenreId($genreId);
-            // does the same thing as this long form
 
             $songsQuery->whereHas('genres', function ($genreQuery) use ($genreId) {
                 $genreQuery->where('id', '=', $genreId);
             });
         }
-
+  // this coide is checking if the country_id key is on the request (either in $_POST or $_GET)
+     
         if ($request->has('country_id')) {
             $songsQuery->where('country_id', '=', $request->input('country_id'));
         }
-
+  // this coide is checking if the search request is made, if made, search from database and give result
         if ($request->has('search')) {
-            // SELECT * FROM songs WHERE title LIKE '%abc%';
+            
             $search = $request->input('search');
             $songsQuery->where('title', 'LIKE', "%" . $search . "%");
-            // $songsQuery->where('title', 'LIKE', "%$search%");
+           
         }
 
         if ($request->has('country_name')) {
-            // when loading the songs from the DB, also check the countries table
-            // and see if there is a country for this model (relationship) that matches
-            // the extra where statements we're adding
+          // this coide is checking if the country_name key is on the request (either in $_POST or $_GET)
+   
             $countryName = $request->input('country_name');
             $songsQuery->whereHas('country', function ($countryQuery) use ($countryName) {
                 $countryQuery->where('name', 'LIKE', '%' . $countryName . '%');
@@ -77,22 +65,16 @@ class SongController extends Controller
      */
     public function show(int $id)
     {
-        // this:
-        // $song = Song::query()->find($id);
-        // is the same as:
+      //this code send detail of single song
         $song = Song::find($id);
-        // use load AFTER we've gotten a SINGLE model
-        // (or loop over a Collection of models and call 'load' for each one)
+       
         $song->load(['genres', 'country']);
-        // is the same as calling each one individually:
-        // $song->load('genre');
-        // $song->load('country');
 
         return response()->json($song);
     }
 
     /**
-     * Store a new song in the database
+     * This code is use for Store  new song into database
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
@@ -108,12 +90,7 @@ class SongController extends Controller
 
         $userInput = $request->all();
 
-        // The below is equivalent to:
-        // Song::create([
-        //     'title' => 'title of the song',
-        //     'duration' => '12345',
-        //     'genre_id' => 1
-        // ]);
+
         $song = Song::create($userInput);
 
         if ($request->has('country_id')) {
@@ -138,7 +115,7 @@ class SongController extends Controller
     }
 
     /**
-     * Updates a specific Song with the input the user provides
+     * This code use for Updates a specific Song with the input the user provides
      * 
      * @param int $id 
      * @param Request $request 
@@ -156,7 +133,6 @@ class SongController extends Controller
         $userInput = $request->all();
         $song = Song::find($id);
 
-        // actuallly update the given song
         $success = $song->update($userInput);
 
         if (! $success) {
@@ -187,7 +163,7 @@ class SongController extends Controller
     }
 
     /**
-     * Delete a specific song
+     * Delete a specific song from database
      * 
      * @param int $id 
      * @return \Illuminate\Http\Response

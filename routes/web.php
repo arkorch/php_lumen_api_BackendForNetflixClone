@@ -13,10 +13,6 @@
 |
 */
 
-// example closure (inline function) route
-// $router->get('/', function () use ($router) {
-//     return $router->app->version();
-// });
 
 $router->get('/', [
     'as' => 'home.index',
@@ -24,32 +20,32 @@ $router->get('/', [
 ]);
 
 // Songs
-// GET /api/songs maps to SongController function index, and lists songs
+// GET /api/songs maps to SongController function all songs
 $router->get('/api/songs', [
     'as' => 'api.songs.index',
     'uses' => 'SongController@index',
-    // 'middleware' => ['auth']
+   
 ]);
 
-// GET /api/songs/{id} maps to SongController function show, and shows a specific movie
+// GET /api/songs/{id} maps to SongController function show, and shows a specific songs details
 $router->get('/api/songs/{id}', [
     'as' => 'api.songs.show',
     'uses' => 'SongController@show'
 ]);
 
-// POST /api/songs maps to SongController function store, which creates/stores a new song
+// POST /api/songs maps to SongController function store, which creates/stores a new song into the database
 $router->post('/api/songs', [
     'as' => 'api.songs.store',
     'uses' => 'SongController@store'
 ]);
 
-// PATCH /api/songs/{id} maps to SongController function update, which updates a specific movie
+// PATCH /api/songs/{id} maps to SongController function update, which updates a specific movie into database
 $router->patch('/api/songs/{id}', [
     'as' => 'api.songs.update',
     'uses' => 'SongController@update'
 ]);
 
-// DELETE /api/songs/{id} maps to SongController function destroy, which deletes the given song
+// DELETE /api/songs/{id} maps to SongController function destroy, which deletes the song from database
 $router->delete('/api/songs/{id}', [
     'as' => 'api.songs.delete',
     'uses' => 'SongController@destroy'
@@ -77,11 +73,11 @@ $router->get('/api/movie', [
 
 //Movie 
 
-// GET /api/songs maps to SongController function index, and lists movies
+// GET /api/songs maps to MovieController function index, and lists movies
 $router->get('/api/movies', [
     'as' => 'api.movies.index',
     'uses' => 'MovieController@index',
-    // 'middleware' => ['auth']
+    
 ]);
 //Show Only Movies For Adult
 
@@ -96,25 +92,25 @@ $router->get('/api/movies/onlykids', [
     'as' => 'api.movie.onlykids',
     'uses' => 'MovieController@onlykids'
 ]);
-// GET /api/movies/{id} maps to SongController function show, and shows a specific movie
+// GET /api/movies/{id} maps to MovieController function show, and shows a specific movie using id
 $router->get('/api/movies/{id}', [
     'as' => 'api.movies.show',
     'uses' => 'MovieController@show'
 ]);
 
-// POST /api/movies maps to SongController function store, which creates/stores a new movie
+// POST /api/movies maps to MovieController function store, which creates/stores a new movie into database
 $router->post('/api/movies', [
     'as' => 'api.movies.store',
     'uses' => 'MovieController@store'
 ]);
 
-// PATCH /api/movies/{id} maps to SongController function update, which updates a specific movie
+// PATCH /api/movies/{id} maps to MovieController function update, which updates a specific movie into database
 $router->patch('/api/movies/{id}', [
     'as' => 'api.movies.update',
     'uses' => 'MovieController@update'
 ]);
 
-// DELETE /api/movies/{id} maps to SongController function destroy, which deletes the given movie
+// DELETE /api/movies/{id} maps to MovieController function destroy, which deletes the given movie from database
 $router->delete('/api/movies/{id}', [
     'as' => 'api.movies.delete',
     'uses' => 'MovieController@destroy'
@@ -140,44 +136,44 @@ $router->get('/api/movie/countries/{id}', [
 
 
 //TVSHOWS 
-// GET /api/songs maps to SongController function index, and lists movies
+// GET /api/tvshows maps to TvshowController function index, and lists movies and show all tvshows
 $router->get('/api/tvshow', [
     'as' => 'api.tvshows.index',
     'uses' => 'TvshowController@index',
-    // 'middleware' => ['auth']
+
 ]);
-//Show Only Movies For Adult
+//Show Only tvshow For Adult
 
 $router->get('/api/tvshow/onlyadult', [
     'as' => 'api.movie.onlyadult',
     'uses' => 'TvshowController@onlyadult'
 ]);
 
-//Show Only Movies For Kids
+//Show Only tvshow For Kids
 
 $router->get('/api/tvshow/onlykids', [
     'as' => 'api.movie.onlykids',
     'uses' => 'TvshowController@onlykids'
 ]);
-// GET /api/tvshow/{id} maps to SongController function show, and shows a specific movie
+// GET /api/tvshow/{id} maps to TvshowController function show, and shows a specific tvshow in json format
 $router->get('/api/tvshow/{id}', [
     'as' => 'api.tvshows.show',
     'uses' => 'TvshowController@show'
 ]);
 
-// POST /api/tvshow maps to SongController function store, which creates/stores a new movie
+// POST /api/tvshow maps to TvshowController function store, which creates/stores a new  tvshow in json format
 $router->post('/api/tvshow', [
     'as' => 'api.tvshows.store',
     'uses' => 'TvshowController@store'
 ]);
 
-// PATCH /api/tvshow/{id} maps to SongController function update, which updates a specific movie
+// PATCH /api/tvshow/{id} maps to TvshowController function update, which updates a specific tvshowin json format
 $router->patch('/api/tvshow/{id}', [
     'as' => 'api.tvshows.update',
     'uses' => 'TvshowController@update'
 ]);
 
-// DELETE /api/tvshow/{id} maps to SongController function destroy, which deletes the given movie
+// DELETE /api/tvshow/{id} maps to TvshowController function destroy, which deletes the given movie 
 $router->delete('/api/tvshow/{id}', [
     'as' => 'api.tvshows.delete',
     'uses' => 'TvshowController@destroy'

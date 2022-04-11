@@ -49,11 +49,8 @@ class Song extends Model
      */
     public function genres()
     {
-        // belongs to many will look for a table
-        // that is the name of this model
-        // and the name of the related model
-        // made singular, and in alphabetical order
-        // i.e genre_song
+        
+        
         return $this->belongsToMany(Genre::class);
     }
     
@@ -65,7 +62,6 @@ class Song extends Model
     public function country()
     {
         return $this->belongsTo(Country::class);
-        // is the same as:
-        // return $this->belongsTo('\App\Models\Country');
+        
     }
 }
