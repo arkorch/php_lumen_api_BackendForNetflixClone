@@ -20,7 +20,7 @@ Madhur Kakkar
 * Install the database
 * put this comand in folder terminal " php -S localhost:8000 -t public " 
 * Then you can see our Api working on localhost
-* For example if you need to open songs api then you write this on your browser "localhost:8000/api/songs"
+* For example if you need to open songs api then you have to write this on your browser "localhost:8000/api/songs"
 
 # Lumen PHP Framework
 
