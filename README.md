@@ -22,6 +22,28 @@ Madhur Kakkar
 * Then you can see our Api working on localhost
 * For example if you need to open songs api then you have to write this on your browser "localhost:8000/api/songs"
 
+# FOR .ENV FILE ( Please copy this ) and save file as .env in root folder 
+
+APP_NAME=Lumen
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+APP_TIMEZONE=UTC
+
+LOG_CHANNEL=stack
+LOG_SLACK_WEBHOOK_URL=
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=netflixapis    .//database name
+DB_USERNAME=root           // username of sql
+DB_PASSWORD=               // password of sql
+
+CACHE_DRIVER=file
+QUEUE_CONNECTION=sync
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
