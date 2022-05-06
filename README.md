@@ -4,16 +4,6 @@ Research 2 assignment using Laravel Lumen. This API is used by the Netflix Clone
 # Link to Netflix Clone Repository
 https://github.com/arkorch/netflixclone_frontend.git
 
-# Link to Heroku Live Server
-https://netflix-clone-arko-madhur.herokuapp.com/
-
-# Dev Notes & Research Doc
-https://fanshaweonlineca-my.sharepoint.com/:w:/g/personal/m_kakkar141031_fanshaweonline_ca/Eb5dgHKt1QNGh8cMsV13DqYB2068BC2oNkoAD3QCuqWChg?e=tg3m82
-
-# Team Members
-Arko Roychowdhury
-Madhur Kakkar
-
 # Installation 
 * You need to install Lumen,php & Composer 
 * Then you need to create .env file 
